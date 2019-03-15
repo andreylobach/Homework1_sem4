@@ -4,7 +4,6 @@
 #include <utility>
 #include <set>
 #include <cmath>
-#define Num 11
 #define Min 2000000000
 using namespace std;
 
@@ -40,23 +39,30 @@ double Median(set<int> vNum, set<int>& vD, set<int>& vH) {
 int main() {
     set<int> vNumbers, vDown, vHigh, vDD, vHH;
     int nItem;
-    double mean, std, median, q, Q, nSum = 0;
-    for (int i = 0; i < Num; i++) {
-        cin >> nItem;
-        nSum += nItem;
+    double mean, std, nSum = 0, s = 0;
+    string input_str;
+
+    getline(cin, input_str);
+
+    stringstream ss(input_str);
+
+    while (ss >> nItem) {
         vNumbers.insert(nItem);
-        cin.ignore(1); 
+        nSum += nItem;
+        if (ss.peek() == ',')
+            ss.ignore();
     }
 
-    mean = nSum / Num;
+    int nNum = vNumbers.size();
+
+    mean = nSum / nNum;
     cout << "mean = " << mean << ", ";
-    double s = 0;
     
     for (auto item : vNumbers) {
         s += (item - mean) * (item - mean);
     }
 
-    std = s / Num;
+    std = s / nNum;
     std = sqrt(std);
 
     cout << "std = " << std << ", ";
